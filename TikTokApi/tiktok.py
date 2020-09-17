@@ -918,7 +918,7 @@ class TikTokApi:
         video_url = video_info["itemInfo"]["itemStruct"]["video"]["downloadAddr"]
         headers = {"User-Agent": "okhttp", "Range": "bytes=1000-80000"}
         try:
-            video_url = video_url.replace("v16-web", "v16")
+            video_url = video_url.replace("-web", "")
         except:
             pass
         video_data = requests.get(video_url, params=None, headers=headers).text
