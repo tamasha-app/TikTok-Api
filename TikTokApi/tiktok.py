@@ -823,6 +823,10 @@ class TikTokApi:
         video_info = self.getTikTokById(video_id)
         video_url = video_info["itemInfo"]["itemStruct"]["video"]["downloadAddr"]
         headers = {"User-Agent": "okhttp", "Range": "bytes=1000-80000"}
+        try:
+            video_url = video_url.replace("v16-web", "v16")
+        except:
+            pass
         video_data = requests.get(video_url, params=None, headers=headers).text
         pos = video_data.find("vid:")
         if pos == -1:
