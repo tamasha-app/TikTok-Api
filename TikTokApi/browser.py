@@ -53,7 +53,8 @@ class browser:
             'userDataDir': "./tmp",
             'handleSIGINT': False,
             'handleSIGTERM': False,
-            'handleSIGHUP': False
+            'handleSIGHUP': False,
+            'dumpio': True
         }
 
         if async_support:
@@ -101,8 +102,10 @@ class browser:
 
         self.width = await self.page.evaluate("""() => { return screen.width; }""")
         self.height = await self.page.evaluate("""() => { return screen.height; }""")
-
+        
+        await asyncio.sleep(5)
         await self.browser.close()
+        await asyncio.sleep(5)
         self.browser.process.communicate()
 
         return 0
@@ -154,8 +157,9 @@ class browser:
             self.data = await self.page.content()
             # self.data = json.loads(self.data.replace("</pre></body></html>", "").replace(
             #    '<html><head></head><body><pre style="word-wrap: break-word; white-space: pre-wrap;">', ""))
-
+        await asyncio.sleep(5)
         await self.browser.close()
+        await asyncio.sleep(5)
         self.browser.process.communicate()
 
     async def find_redirect(self):
@@ -192,12 +196,15 @@ class browser:
             })
 
             self.redirect_url = self.page.url
-
+            await asyncio.sleep(5)
             await self.browser.close()
+            await asyncio.sleep(5)
             self.browser.process.communicate()
 
         except:
+            await asyncio.sleep(5)
             await self.browser.close()
+            await asyncio.sleep(5)
             self.browser.process.communicate()
 
     def __format_proxy(self, proxy):
